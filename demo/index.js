@@ -11,8 +11,8 @@ let isBenchmark = /(\/spiral|\/pythagoras|[#&]bench)/g.test(
 if (!isBenchmark) {
 	// eslint-disable-next-line no-console
 	console.log('Enabling devtools and debug');
-	initDevTools();
-	initDebug();
+	// initDevTools();
+	// initDebug();
 }
 
 // mobx-state-tree fix
