@@ -53,7 +53,7 @@ options._render = vnode => {
 			hooks._pendingEffects.forEach(invokeCleanup);
 			hooks._pendingEffects.forEach(invokeEffect);
 			hooks._pendingEffects = [];
-			// currentIndex = 0;
+			currentIndex = 0;
 		}
 	}
 	previousComponent = currentComponent;
