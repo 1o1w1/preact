@@ -2,15 +2,13 @@ import { createElement, render, useRef, useEffect, useState } from 'react';
 
 export const Counter = () => {
 	const [count, setCount] = useState(0);
-	useState(8888888);
+	useState('binggo!!');
 	const renderRoot = useRef();
 	useEffect(() => {
 		if (count > 0) {
 			const div = renderRoot.current;
-			// return () => render(<Dummy key="Dummy" />, div);
 			render(<Dummy key="Dummy" />, div);
 		}
-		return () => 'test';
 	}, [count]);
 
 	const increment = () => {
@@ -29,7 +27,6 @@ export const Counter = () => {
 };
 
 const Dummy = () => {
-	const [temp] = useState(999999);
-
+	const [temp] = useState('Dummy');
 	return <div key="Dummy_div">{temp}</div>;
 };
