@@ -31,6 +31,7 @@ export function initDebug() {
 	/* eslint-disable no-console */
 	let oldBeforeDiff = options._diff;
 	let oldDiffed = options.diffed;
+	let oldRender = options._render;
 	let oldVnode = options.vnode;
 	let oldCatchError = options._catchError;
 	let oldRoot = options._root;
@@ -117,8 +118,6 @@ export function initDebug() {
 	options._diff = vnode => {
 		let { type, _parent: parent } = vnode;
 		let parentVNode = getClosestDomNodeParent(parent);
-
-		hooksAllowed = true;
 
 		if (type === undefined) {
 			throw new Error(
@@ -250,6 +249,13 @@ export function initDebug() {
 		}
 
 		if (oldBeforeDiff) oldBeforeDiff(vnode);
+	};
+
+	options._render = vnode => {
+		if (oldRender) {
+			oldRender(vnode);
+		}
+		hooksAllowed = true;
 	};
 
 	options._hook = (comp, index, type) => {
