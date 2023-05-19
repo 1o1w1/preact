@@ -5,10 +5,8 @@ export const HOIssueReproduction = () => {
 	useState('binggo!!');
 	const renderRoot = useRef();
 	useEffect(() => {
-		if (count > 0) {
-			const div = renderRoot.current;
-			render(<Dummy key="Dummy" />, div);
-		}
+		const div = renderRoot.current;
+		render(<Dummy key="Dummy" />, div);
 	}, [count]);
 
 	const increment = () => {
