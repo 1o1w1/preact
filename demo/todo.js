@@ -3,7 +3,27 @@ import { createElement, Component } from 'preact';
 let counter = 0;
 
 export default class TodoList extends Component {
-	state = { todos: [], text: '' };
+	state = {
+		todos: [
+			{
+				text: '0',
+				id: 0
+			},
+			{
+				text: '1',
+				id: 1
+			},
+			{
+				text: '2',
+				id: 2
+			},
+			{
+				text: '3',
+				id: 3
+			}
+		],
+		text: ''
+	};
 
 	setText = e => {
 		this.setState({ text: e.target.value });
@@ -20,13 +40,26 @@ export default class TodoList extends Component {
 		this.setState({ todos: this.state.todos.filter(t => t.id != id) });
 	};
 
+	changeIndex = (item, targetIndex) => {
+		let { todos } = this.state;
+		todos = todos.filter(t => t.id != item.id);
+		todos.splice(targetIndex, 0, item);
+		console.log(todos);
+		this.setState({ todos });
+	};
+
 	render({}, { todos, text }) {
 		return (
 			<form onSubmit={this.addTodo} action="javascript:">
 				<input value={text} onInput={this.setText} />
 				<button type="submit">Add</button>
 				<ul>
-					<TodoItems todos={todos} removeTodo={this.removeTodo} />
+					<TodoItems
+						key={'TodoItems'}
+						todos={todos}
+						removeTodo={this.removeTodo}
+						changeIndex={this.changeIndex}
+					/>
 				</ul>
 			</form>
 		);
@@ -34,12 +67,16 @@ export default class TodoList extends Component {
 }
 
 class TodoItems extends Component {
-	render({ todos, removeTodo }) {
-		return todos.map(todo => (
+	render({ todos, removeTodo, changeIndex }) {
+		return todos.map((todo, index) => (
 			<li key={todo.id}>
+				<input
+					value={index}
+					onInput={evt => changeIndex(todo, evt.target.value)}
+				/>
 				<button type="button" onClick={removeTodo} data-id={todo.id}>
 					&times;
-				</button>{' '}
+				</button>
 				{todo.text}
 			</li>
 		));
